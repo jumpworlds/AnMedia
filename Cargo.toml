@@ -1,0 +1,61 @@
+[package]
+name = "anmedia"
+version = "2.0.0"
+edition = "2024"
+rust-version = "1.97"
+authors = ["Anton4k272"]
+description = "Fast native Windows viewer and player for images, video and audio"
+build = "build.rs"
+
+[dependencies]
+eframe = { version = "0.35.0", default-features = false, features = ["default_fonts", "glow", "persistence"] }
+egui = "0.35.0"
+rfd = "0.15.4"
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
+directories = "6.0.0"
+dark-light = "2.0.0"
+crossbeam-channel = "0.5.15"
+walkdir = "2.5.0"
+raw-window-handle = "0.6.2"
+rand = "0.9.2"
+image = "0.25.9"
+resvg = { version = "0.45", default-features = false, features = ["text", "system-fonts", "raster-images"] }
+jxl-oxide = "0.12"
+url = "2.5.7"
+lofty = "0.24.0"
+psd = "0.3"
+reqwest = { version = "0.13.4", features = ["blocking", "json", "query"] }
+
+[target.'cfg(windows)'.dependencies]
+arboard = { version = "=3.6.1", default-features = false, features = ["image-data"] }
+rodio = { version = "=0.22.2", default-features = false, features = ["playback", "symphonia-all"] }
+windows-core = "0.62.2"
+windows = { version = "0.62.2", features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Imaging",
+    "Win32_Media_MediaFoundation",
+    "Win32_System_Com",
+    "Win32_System_Com_StructuredStorage",
+    "Win32_System_Variant"
+] }
+windows-sys = { version = "0.61.2", features = [
+    "Win32_Foundation",
+    "Win32_System_LibraryLoader",
+    "Win32_System_ProcessStatus",
+    "Win32_System_Threading",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging"
+] }
+winreg = "0.55.0"
+
+[build-dependencies]
+winres = "0.1.12"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+opt-level = 3
